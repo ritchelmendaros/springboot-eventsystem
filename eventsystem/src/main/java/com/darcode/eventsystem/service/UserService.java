@@ -60,4 +60,10 @@ public class UserService {
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
+
+    public Long getUserIdByUsername(String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        return userOptional.map(User::getUserid).orElse(null);
+    }
+
 }
