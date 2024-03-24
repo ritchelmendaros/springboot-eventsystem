@@ -22,10 +22,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
-            // Process user registration logic using the userService
-            System.out.print(user.getFirstname());
             userService.register(user);
             return ResponseEntity.ok("User registered successfully");
         } catch (Exception e) {
@@ -35,20 +33,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
         try {
-            User existingUser = userService.findByUsername(user.getUsername());
-            if (existingUser == null) {
+            User existingUser = userService.findByUsername(user.getUsername(), user.getPassword());
+            if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body("Invalid username or password");
             }
-
-            // Check if password matches
-            if (!existingUser.getPassword().equals(user.getPassword())) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body("Invalid username or password");
-            }
-
             return ResponseEntity.ok("Login successful");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

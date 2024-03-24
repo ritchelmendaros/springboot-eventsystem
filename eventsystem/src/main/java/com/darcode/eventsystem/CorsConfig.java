@@ -13,9 +13,14 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/users/register") // Adjust the mapping based on your API endpoints
-                        .allowedOrigins("http://localhost:3000") // Allow requests from your frontend
+                registry.addMapping("/api/users/register") // Allow CORS for register endpoint
+                        .allowedOrigins("http://localhost:3000") // Allow requests from frontend
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific HTTP methods
+                        .allowedHeaders("*"); // Allow all headers
+
+                registry.addMapping("/api/users/login") // Allow CORS for login endpoint
+                        .allowedOrigins("http://localhost:3000") // Allow requests from frontend
+                        .allowedMethods("POST") // Allow only POST method for login
                         .allowedHeaders("*"); // Allow all headers
             }
         };
