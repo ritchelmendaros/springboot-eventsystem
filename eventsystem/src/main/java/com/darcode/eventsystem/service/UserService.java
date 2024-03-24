@@ -44,22 +44,20 @@ public class UserService {
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 if (user.getPassword().equals(password)) {
-                    // Password matches, return the user
                     return user;
                 } else {
-                    // Password doesn't match
                     return null;
                 }
             } else {
-                // User not found
                 return null;
             }
         } catch (DataAccessException e) {
-            // Log the error for debugging
             System.err.println("Error occurred while finding user by username: " + e.getMessage());
-            // You can throw a custom exception or handle the error as needed
             throw new RuntimeException("Error finding user by username: " + e.getMessage());
         }
     }
 
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }
