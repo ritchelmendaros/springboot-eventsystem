@@ -1,12 +1,13 @@
 package com.darcode.eventsystem.repository;
 
-import java.util.List;
+import com.darcode.eventsystem.model.EventParticipant;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class EventParticipantRepository {
+@Repository
+public interface EventParticipantRepository extends JpaRepository<EventParticipant, Long> {
 
-    public List<Long> findEventIdsByUserId(Long userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findEventIdsByUserId'");
-    }
+    boolean existsByUserID(Long userID);
 
+    EventParticipant findByUserID(Long userID);
 }
