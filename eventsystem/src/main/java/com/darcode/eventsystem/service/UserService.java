@@ -66,4 +66,8 @@ public class UserService {
         return userOptional.map(User::getUserid).orElse(null);
     }
 
+    public User findByUserId(Long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
+
 }

@@ -77,4 +77,23 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getUserDetails")
+    public ResponseEntity<?> getUserDetails(@RequestParam("userId") Long userId) {
+        try {
+            User user = userService.findByUserId(userId);
+            if (user != null) {
+                User userDetails = new User();
+                userDetails.setFirstname(user.getFirstname());
+                userDetails.setLastname(user.getLastname());
+                userDetails.setUserType(user.getUserType());
+
+                return ResponseEntity.ok(userDetails);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error retrieving user details: " + e.getMessage());
+        }
+    }
 }
