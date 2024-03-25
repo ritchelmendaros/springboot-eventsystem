@@ -2,6 +2,10 @@ package com.darcode.eventsystem.service;
 
 import com.darcode.eventsystem.model.EventParticipant;
 import com.darcode.eventsystem.repository.EventParticipantRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +19,12 @@ public class EventParticipantService {
         this.eventParticipantRepository = eventParticipantRepository;
     }
 
-    public Long getEventIdByUserId(Long userId) {
-        EventParticipant eventParticipant = eventParticipantRepository.findByUserID(userId);
-        if (eventParticipant != null) {
-            return eventParticipant.getEventID();
-        } else {
-            return null;
+    public List<Long> getEventIdsByUserId(Long userId) {
+        List<EventParticipant> eventParticipants = eventParticipantRepository.findAllByUserID(userId);
+        List<Long> eventIds = new ArrayList<>();
+        for (EventParticipant eventParticipant : eventParticipants) {
+            eventIds.add(eventParticipant.getEventID());
         }
+        return eventIds;
     }
 }

@@ -1,6 +1,9 @@
 package com.darcode.eventsystem.controller;
 
 import com.darcode.eventsystem.service.EventParticipantService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +24,9 @@ public class EventParticipantController {
 
     @PostMapping("/check")
     public ResponseEntity<?> checkUserIdExistsInEventParticipants(@RequestBody Long userId) {
-        Long eventId = eventParticipantService.getEventIdByUserId(userId);
-        if (eventId != null) {
-            return ResponseEntity.ok().body(eventId);
+        List<Long> eventIds = eventParticipantService.getEventIdsByUserId(userId);
+        if (eventIds != null && !eventIds.isEmpty()) {
+            return ResponseEntity.ok().body(eventIds);
         } else {
             return ResponseEntity.notFound().build();
         }
