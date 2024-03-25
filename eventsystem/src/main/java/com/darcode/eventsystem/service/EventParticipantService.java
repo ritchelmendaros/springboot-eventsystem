@@ -27,4 +27,8 @@ public class EventParticipantService {
         }
         return eventIds;
     }
+
+    public EventParticipant addParticipantToEvent(EventParticipant eventParticipant) {
+        return eventParticipantRepository.save(eventParticipant);
+    }
 }
