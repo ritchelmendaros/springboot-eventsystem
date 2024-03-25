@@ -2,8 +2,6 @@ package com.darcode.eventsystem.service;
 
 import com.darcode.eventsystem.model.Event;
 import com.darcode.eventsystem.repository.EventRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +12,6 @@ import java.util.Optional;
 public class EventService {
 
     private final EventRepository eventRepository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventService.class);
 
     @Autowired
     public EventService(EventRepository eventRepository) {
@@ -22,15 +19,20 @@ public class EventService {
     }
 
     public List<Event> getAllEvents() {
-        try {
-            List<Event> events = eventRepository.findAll();
-            LOGGER.info("Number of events retrieved: {}", events.size());
-            return events;
-        } catch (Exception e) {
-            LOGGER.error("Error occurred while fetching events: {}", e.getMessage());
-            throw e;
-        }
+        List<Event> events = eventRepository.findAll();
+        System.out.println("Number of events retrieved: " + events.size());
+        return events;
     }
 
-    // Other methods omitted for brevity
+    public Optional<Event> getEventById(Long id) {
+        return eventRepository.findById(id);
+    }
+
+    public Event saveEvent(Event event) {
+        return eventRepository.save(event);
+    }
+
+    public void deleteEvent(Long id) {
+        eventRepository.deleteById(id);
+    }
 }

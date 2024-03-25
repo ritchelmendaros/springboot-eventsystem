@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 
-@Entity(name = "eventparticioant")
+@Entity(name = "eventparticipant")
 public class EventParticipant {
 
     @Id
