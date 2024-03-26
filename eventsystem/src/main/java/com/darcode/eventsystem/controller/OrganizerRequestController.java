@@ -58,4 +58,18 @@ public class OrganizerRequestController {
         }
     }
 
+    @PostMapping("/updateStatus")
+    public ResponseEntity<String> updateStatus(@RequestBody Map<String, String> requestData) {
+        Long userId = Long.parseLong(requestData.get("userId"));
+        String newStatus = requestData.get("newStatus");
+
+        try {
+            organizerRequestService.updateStatus(userId, newStatus);
+            return ResponseEntity.ok("User status updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating user status: " + e.getMessage());
+        }
+    }
+
 }
