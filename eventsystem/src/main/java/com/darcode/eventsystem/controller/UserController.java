@@ -83,6 +83,7 @@ public class UserController {
             User user = userService.findByUserId(userId);
             if (user != null) {
                 User userDetails = new User();
+                userDetails.setUserid(user.getUserid());
                 userDetails.setFirstname(user.getFirstname());
                 userDetails.setLastname(user.getLastname());
                 userDetails.setUserType(user.getUserType());
@@ -96,4 +97,21 @@ public class UserController {
                     .body("Error retrieving user details: " + e.getMessage());
         }
     }
+
+    @PostMapping("/updateUserType")
+    public ResponseEntity<?> updateUserType(@RequestBody Map<String, Object> requestData) {
+        try {
+            Long userId = Long.parseLong(requestData.get("userId").toString());
+            Integer userType = Integer.parseInt(requestData.get("userType").toString());
+
+            userService.updateUserType(userId, userType);
+            return ResponseEntity.ok("User type updated successfully");
+        } catch (NumberFormatException | NullPointerException e) {
+            return ResponseEntity.badRequest().body("Invalid userId or userType");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating user type: " + e.getMessage());
+        }
+    }
+
 }
