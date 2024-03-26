@@ -1,5 +1,7 @@
 package com.darcode.eventsystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.darcode.eventsystem.model.OrganizerRequest;
@@ -18,4 +20,14 @@ public class OrganizerRequestService {
     public void save(OrganizerRequest organizerRequest) {
         organizerRequestRepository.save(organizerRequest);
     }
+
+    public List<OrganizerRequest> getAllOrganizerRequests() {
+        return organizerRequestRepository.findAll();
+    }
+
+    public List<Long> getAllUserIds() {
+        // TODO: Implement logic to extract user IDs from the organizer requests
+        throw new UnsupportedOperationException("Method 'getAllUserIds' not yet implemented");
+    }
+
 }
