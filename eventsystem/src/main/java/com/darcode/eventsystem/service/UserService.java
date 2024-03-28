@@ -4,7 +4,10 @@ import com.darcode.eventsystem.model.User;
 import com.darcode.eventsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +71,17 @@ public class UserService {
 
     public User findByUserId(Long userId) {
         return userRepository.findById(userId).orElse(null);
+    }
+
+    public void updateUserType(Long userId, Integer userType) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setUserType(userType);
+            userRepository.save(user);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with ID: " + userId);
+        }
     }
 
 }
