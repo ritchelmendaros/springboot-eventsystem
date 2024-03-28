@@ -2,6 +2,7 @@ package com.darcode.eventsystem.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -111,6 +112,17 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error updating user type: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/allUsers")
+    public ResponseEntity<?> getAllUsers() {
+        try {
+            List<User> userList = userService.getAllUsers();
+            return ResponseEntity.ok(userList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error retrieving all users: " + e.getMessage());
         }
     }
 
