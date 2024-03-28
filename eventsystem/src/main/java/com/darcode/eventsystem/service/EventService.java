@@ -51,4 +51,8 @@ public class EventService {
         }
     }
 
+    public List<Long> getUserIdsByEventId(Long eventId) {
+        return eventRepository.findUserIdsByEventId(eventId);
+    }
+
 }

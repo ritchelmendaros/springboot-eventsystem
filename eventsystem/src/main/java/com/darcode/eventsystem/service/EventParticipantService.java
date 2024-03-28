@@ -31,4 +31,9 @@ public class EventParticipantService {
     public EventParticipant addParticipantToEvent(EventParticipant eventParticipant) {
         return eventParticipantRepository.save(eventParticipant);
     }
+
+    public List<EventParticipant> getAllParticipantDetails() {
+        return eventParticipantRepository.findAll();
+    }
+
 }

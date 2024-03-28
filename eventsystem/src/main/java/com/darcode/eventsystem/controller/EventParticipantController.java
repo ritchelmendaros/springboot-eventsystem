@@ -3,11 +3,13 @@ package com.darcode.eventsystem.controller;
 import com.darcode.eventsystem.model.EventParticipant;
 import com.darcode.eventsystem.service.EventParticipantService;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +44,17 @@ public class EventParticipantController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to add participant to event: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/getall")
+    public ResponseEntity<List<EventParticipant>> getAllParticipantDetails() {
+        try {
+            List<EventParticipant> participants = eventParticipantService.getAllParticipantDetails();
+            return ResponseEntity.ok().body(participants);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.emptyList());
         }
     }
 }

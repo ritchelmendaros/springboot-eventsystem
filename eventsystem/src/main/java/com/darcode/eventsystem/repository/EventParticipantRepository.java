@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventParticipantRepository extends JpaRepository<EventParticipant, Long> {
     List<EventParticipant> findAllByUserID(Long userID);
+
 }
