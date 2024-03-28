@@ -16,8 +16,11 @@ public class Event {
     @Column(name = "eventName")
     private String eventName;
 
-    @Column(name = "eventDateTime")
-    private String eventDateTime;
+    @Column(name = "eventDescription")
+    private String eventDescription;
+
+    @Column(name = "eventDate")
+    private String eventDate;
 
     @Column(name = "organizerID")
     private Long organizerId;
@@ -29,8 +32,23 @@ public class Event {
     private String location;
 
     // Getters and setters
+    public Event() {
+
+    }
+
     public Long getEventId() {
         return eventId;
+    }
+
+    public Event(Long eventId, String eventName, String eventDescription, String eventDate, Long organizerId,
+            String eventStatus, String location) {
+        this.eventId = eventId;
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
+        this.eventDate = eventDate;
+        this.organizerId = organizerId;
+        this.eventStatus = eventStatus;
+        this.location = location;
     }
 
     public void setEventId(Long eventId) {
@@ -45,12 +63,8 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public String getEventDateTime() {
-        return eventDateTime;
-    }
-
-    public void setEventDateTime(String eventDateTime) {
-        this.eventDateTime = eventDateTime;
+    public String getEventDate() {
+        return eventDate;
     }
 
     public Long getOrganizerId() {
@@ -75,5 +89,17 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 }

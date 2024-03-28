@@ -16,14 +16,17 @@ public class OrganizerRequest {
     public Long userid;
     @Column(name = "request_status")
     public String requestStatus;
+    @Column(name = "hasRequested")
+    public Long hasRequested;
 
     public OrganizerRequest() {
     }
 
-    public OrganizerRequest(Long requestid, Long userid, String requestStatus) {
+    public OrganizerRequest(Long requestid, Long userid, String requestStatus, Long hasRequested) {
         this.requestid = requestid;
         this.userid = userid;
         this.requestStatus = requestStatus;
+        this.hasRequested = hasRequested;
     }
 
     public Long getRequestid() {
@@ -48,6 +51,14 @@ public class OrganizerRequest {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public Long getHasRequested() {
+        return hasRequested;
+    }
+
+    public void setHasRequested(Long hasRequested) {
+        this.hasRequested = hasRequested;
     }
 
 }

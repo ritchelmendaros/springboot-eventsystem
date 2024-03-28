@@ -39,4 +39,16 @@ public class EventService {
     public List<Event> getEventsByEventIds(List<Long> eventIds) {
         return eventRepository.findAllById(eventIds);
     }
+
+    public void cancelEvent(Long eventId) {
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            event.setEventStatus("Cancelled");
+            eventRepository.save(event);
+        } else {
+            throw new IllegalArgumentException("Event with ID " + eventId + " not found.");
+        }
+    }
+
 }

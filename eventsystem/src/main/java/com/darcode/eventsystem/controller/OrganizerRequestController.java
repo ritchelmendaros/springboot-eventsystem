@@ -30,8 +30,14 @@ public class OrganizerRequestController {
     @PostMapping("/request")
     public ResponseEntity<String> requestOrganizer(@RequestBody OrganizerRequest organizerRequest) {
         try {
-            organizerRequestService.save(organizerRequest);
-            return ResponseEntity.ok("Organizer request sent successfully");
+            // Check if there's already a pending request from the user
+            boolean hasPendingRequest = organizerRequestService.hasPendingRequest(organizerRequest.getUserid());
+            if (hasPendingRequest) {
+                return ResponseEntity.ok("User already has a pending request to be an organizer.");
+            } else {
+                organizerRequestService.save(organizerRequest);
+                return ResponseEntity.ok("Organizer request sent successfully");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error sending organizer request: " + e.getMessage());

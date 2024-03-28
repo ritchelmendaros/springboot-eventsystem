@@ -60,4 +60,9 @@ public class OrganizerRequestService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User request not found with ID: " + userId);
         }
     }
+
+    public boolean hasPendingRequest(Long userId) {
+        return organizerRequestRepository.existsByUseridAndRequestStatus(userId, "pending");
+    }
+
 }

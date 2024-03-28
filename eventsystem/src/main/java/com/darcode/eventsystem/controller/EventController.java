@@ -47,4 +47,15 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<String> cancelEvent(@RequestBody Long eventId) {
+        try {
+            eventService.cancelEvent(eventId);
+            return ResponseEntity.ok().body("Event status updated to cancelled");
+        } catch (Exception e) {
+            LOGGER.error("Error occurred while cancelling event: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to cancel event");
+        }
+    }
 }
