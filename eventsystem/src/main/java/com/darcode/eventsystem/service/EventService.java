@@ -55,4 +55,13 @@ public class EventService {
         return eventRepository.findUserIdsByEventId(eventId);
     }
 
+    public List<Event> getEventsByOrganizerId(Long userId) {
+        return eventRepository.findByOrganizerId(userId);
+    }
+
+    public Event addEvent(Event event) {
+        // You can add additional logic/validation here if needed
+        return eventRepository.save(event);
+    }
+
 }

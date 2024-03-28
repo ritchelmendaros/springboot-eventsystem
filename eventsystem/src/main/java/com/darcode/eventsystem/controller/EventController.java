@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/events")
+
 public class EventController {
 
     private final EventService eventService;
@@ -57,5 +58,10 @@ public class EventController {
             LOGGER.error("Error occurred while cancelling event: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to cancel event");
         }
+    }
+
+    @PostMapping("/addevents")
+    public Event addEvent(@RequestBody Event event) {
+        return eventService.addEvent(event);
     }
 }
